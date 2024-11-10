@@ -1,103 +1,57 @@
 #include<stdio.h>
-#include<stdbool.h>
 #define N 100
+void f_input_arr(int *pt_arr, int len)
+{
+    for(int i = 0; i < len; i++)
+    {
+        scanf("%d", pt_arr + i);
+    }
+}
+void f_lower_bound(int *pt_arr, int len, int number, int *pt_min)
+{
+    int start = 0, end = len -1;
+    int mid = start + (end - start) / 2;
+    while(start <= end)
+    {
+        mid = start + (end - start) / 2;
+        if(number < pt_arr[mid])
+        {
+            end = mid - 1;
+        }
+        else
+        {
+            start = mid + 1;
+        }
+    }
+    mid = start - 1;
+    if(*pt_min > number - pt_arr[mid] && number - pt_arr[mid] >= 0)
+    {
+        *pt_min = number - pt_arr[mid];
+    }
+}
 int main(void)
 {
     int arr1[N] = {0}, arr2[N] = {0};
     int len_arr1 = 0, len_arr2 = 0, number_t = 0;
-    int loc_arr1 = 0, loc_arr2 = 0;
-    int min_arr[3] = {0};
-    bool findout = false;
+    int min = 0;
     scanf("%d%d%d", &len_arr1, &len_arr2, &number_t);
-    min_arr[0] = number_t;
-    //input arr1
-    for(int i = 0; i < len_arr1; i++)
-    {
-        scanf("%d", &arr1[i]);
-    }
-    //in put arr2
+    min = number_t + 1;
+    f_input_arr(arr1, len_arr1);
+    f_input_arr(arr2, len_arr2);
     for(int i = 0; i < len_arr2; i++)
     {
-        scanf("%d", &arr2[i]);
-    }
-    //bubblesort-arr2
-    for(int i = 0; i < len_arr2; i++)
-    {
-        int temp = 0;
-        for(int j = 0; j < len_arr2 - i - 1; j++)
+        if(number_t < arr1[0] + arr2[i])
         {
-            if(arr2[j] > arr2[j + 1])
-            {
-                temp = arr2[j + 1];
-                arr2[j + 1] = arr2[j];
-                arr2[j] = temp;
-            }
+            continue;
         }
+        f_lower_bound(arr1, len_arr1, number_t - arr2[i], &min);
     }
-    //judge whether can find
-    if(number_t < arr1[0] + arr2[0])
+    if(min == number_t + 1)
     {
         printf("%d", -1);
-        return 0;
     }
-    //find out the biggest a that smaller than t
-    for(int i = len_arr1 - 1; i >= 0; i--)
+    else
     {
-        if(number_t >= arr1[i] + arr2[0])
-        {
-            loc_arr1 = i;
-            break;
-        }
+        printf("%d", min);
     }
-    //find out the biggest b that smaller than t - a
-    for(int i = 0; i < len_arr2; i++)
-    {
-        if(number_t - arr1[loc_arr1] >= arr2[loc_arr2 + 1] && loc_arr2 <= len_arr2 - 2)
-        {
-            loc_arr2++;
-        }
-        else
-        {
-            break;
-        }
-    }
-    for(; loc_arr1 >= 0 && !findout; loc_arr1--)
-    {
-        for(int j = loc_arr2; j <= len_arr2 - 2 && !findout; j++)
-        {
-            if(number_t < arr1[loc_arr1] + arr2[loc_arr2 + 1])//如果这个b超了，后面的肯定都超了
-            {
-                break;
-            }
-            else if(number_t == arr1[loc_arr1] + arr2[loc_arr2 + 1])//如果刚好为0，那这个肯定是对的
-            {
-                findout = true;
-                min_arr[0] = number_t - arr1[loc_arr1] - arr2[loc_arr2];
-                min_arr[1] = loc_arr1;
-                loc_arr2++;
-                min_arr[2] = loc_arr2;
-            }
-            else
-            {
-                if(number_t - arr1[loc_arr1] - arr2[loc_arr2 + 1] < min_arr[0])
-                {
-                    min_arr[0] = number_t - arr1[loc_arr1] - arr2[loc_arr2 - 1];
-                    loc_arr2++;
-                    min_arr[1] = loc_arr1;
-                    min_arr[2] = loc_arr2;
-                }
-                else
-                {
-                    loc_arr2++;
-                }
-            }
-        }
-        if(number_t - arr1[loc_arr1] - arr2[loc_arr2] < min_arr[0])
-        {
-            min_arr[0] = number_t - arr1[loc_arr1] - arr2[loc_arr2];
-            min_arr[1] = loc_arr1;
-            min_arr[2] = loc_arr2;
-        }
-    }
-    printf("%d", min_arr[0]);
 }
