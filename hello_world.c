@@ -1,6 +1,8 @@
-#include<stdio.h>
+// #include<stdio.h>
 
-int main(void)
-{
-    printf("hello, world!");
-}
+// int main(void)
+// {
+//     char op = '0';
+//     op = 'hello, world';
+//     printf("%s", op);
+// }
