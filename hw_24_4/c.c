@@ -26,7 +26,7 @@ int main(void)
             scanf("%d", &arr1[i][j]);
         }
     }
-    printf("please enter the first matrix, please use blank to seperate each number.\n");
+    printf("please enter the second matrix, please use blank to seperate each number.\n");
     for(int i = 0; i < n; i++)
     {
         for(int j = 0; j < p; j++)
