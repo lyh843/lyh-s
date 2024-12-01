@@ -7,11 +7,11 @@ int f_find(char map[N][M], int row, int col)
 {
     int result = 0;
     bool judge = true;
-    for(int i = 1; i * 2 <= row && i * 2 <= col; i++)
+    for(int i = 1; i * 2 <= row && i * 2 <= col; i++)//i是目前要数的正方形的边长
     {
-        for(int j = 1; j <= row - i; j++)
+        for(int j = 1; j <= row - i; j++)//起始位置到终止位置
         {
-            for(int k = i - 1; k <= col - i; k++)
+            for(int k = i - 1; k <= col - i; k++)//起始位置到终止位置
             {
                 if(map[j][k] == '/' && map[j][k + 1] == '\\')
                 {
@@ -20,14 +20,15 @@ int f_find(char map[N][M], int row, int col)
                     {
                         if(map[j + l][k - l] == '/' && map[j + l][k + 1 + l] == '\\')
                         {
-
+                            
                         }
                         else
                         {
                             judge = false;
                         }
                         if(map[j + i + l][k - i + l + 1] == '\\' && map[j + i + l][k + i - l] == '/')
-                        {}
+                        {
+                        }
                         else
                         {
                             judge = false;

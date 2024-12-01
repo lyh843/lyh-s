@@ -17,7 +17,7 @@ void f_ask(int *pt_arr1, int *pt_arr2, int *pt_len_arr, int id, int size_id)//�
     bool findout = false;
     for(int i = 0; i < 31; i++)
     {
-        if(size_id > pow(2, i) && size_id <= pow(2, i + 1))
+        if(size_id > pow(2, i) && size_id <= pow(2, i + 1))//判断需要的空间大小
         {
             size_id = i + 1;
             break;
@@ -28,6 +28,7 @@ void f_ask(int *pt_arr1, int *pt_arr2, int *pt_len_arr, int id, int size_id)//�
             break;
         }   
     }
+    //开始找
     while(!findout)
     {
         //看看有没有刚好的
@@ -41,11 +42,11 @@ void f_ask(int *pt_arr1, int *pt_arr2, int *pt_len_arr, int id, int size_id)//�
         }
         //没有就得创了
         A:
-        for(int i = 1; !findout; i++)//找最接近的
+        for(int i = 1; !findout; i++)//找大小最接近的，i是相差的大小
         {
             for(int j = *pt_len_arr - 1; j >= 0; j--)
             {
-                if(*(pt_arr1 + j) == 0 && *(pt_arr2 + j) == size_id + i)
+                if(*(pt_arr1 + j) == 0 && *(pt_arr2 + j) == size_id + i)//找到了第一个
                 {
                     (*pt_len_arr)++;
                     for(int k = *pt_len_arr - 1; k > j + 1; k--)//后面的先退退
@@ -56,7 +57,7 @@ void f_ask(int *pt_arr1, int *pt_arr2, int *pt_len_arr, int id, int size_id)//�
                     (*(pt_arr2 + j))--;
                     *(pt_arr2 + j + 1) = *(pt_arr2 + j);
                     *(pt_arr1 + j + 1) = 0;
-                    if(*(pt_arr2 + j + 1) == size_id)
+                    if(*(pt_arr2 + j + 1) == size_id)//虽然裂开了，但是不一定是对的，可能得裂多几次
                     {
                         findout = true;
                         *(pt_arr1 + j + 1) = id;

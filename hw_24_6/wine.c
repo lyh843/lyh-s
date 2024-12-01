@@ -14,6 +14,7 @@ int main(void)
     {
         scanf("%d", &beer[i][1]);
     }
+    //冒泡排序
     for(int i = 0; i < amount_beer - 1; i++)
     {
         for(int j = 0; j < amount_beer - i - 1; j++)

@@ -31,7 +31,7 @@ int f_calculate(int number[3][3], int i)
 }
 int main(void)
 {
-    int arr_number[3][3] = {0};
+    int arr_number[3][3] = {0};//每行是一个数，第0列是数的十位部分，第1列是数的个位部分
     int number = 0, max = 0, system = 1;
     bool flag = false;
     for(int i = 0; i < 3; i++)

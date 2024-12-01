@@ -19,10 +19,17 @@ char *output[5] =
 {
     "reserved", "integer", "float", "operator", "variable"
 };
-int op_arr[M] = {0};
-int loc_op = 0;
+int op_arr[M] = {0};//统计结果的   1、保留字  2、整数  3、浮点数  4、运算符  5、变量  6、回车
+int loc_op = 0;//记录当前录入的结果位置
 bool judge_ = true;//最后有没有分号的judge
 bool judge = true;//总的judge
+int f_judge_reserverd(char *);//判断函数
+int f_judge_operater(char *);
+int f_judge_integer(char *);
+int f_judge_float(char *);
+int f_judge_variable(char *);
+void f_process(char *);
+void f_output();
 int f_judge_reserverd(char *string)
 {
     for(int i = 0; i < 16; i++)
@@ -58,16 +65,16 @@ int f_judge_integer(char *string)
 }
 int f_judge_float(char *string)
 {
-    int count = 0;
+    int count = 0;//数有多少个小数点
     char *pt_str = string;
     char *pos1 = string;
-    for(pos1 = strchr(string, '.'); pos1; pt_str = pos1 + 1, pos1 = strchr(pt_str, '.'))
+    for(pos1 = strchr(string, '.'); pos1; pt_str = pos1 + 1, pos1 = strchr(pt_str, '.'))//找到小数点位置
     {
         count++;
     }
-    if(count == 1 && strlen(string) != 1)
+    if(count == 1 && strlen(string) != 1)//有且只有一个小数点，且不是只有小数点
     {
-        *(pt_str - 1) = 0;
+        *(pt_str - 1) = 0;//让小数点的位置为\0
         for(int i = 0; string[i] != 0; i++)
         {
             if(string[i] < '0' || string[i] > '9')
@@ -91,7 +98,7 @@ int f_judge_float(char *string)
 }
 int f_judge_variable(char *string)
 {
-    if((*string >= 'a' && *string <= 'z' )||(*string >= 'A' && *string <= 'Z')||(*string == '_'))
+    if((*string >= 'a' && *string <= 'z' )||(*string >= 'A' && *string <= 'Z')||(*string == '_'))//开头一定要是字母或下划线
     {
         for(int i = 1; string[i] != 0; i++)
         {
@@ -134,7 +141,7 @@ void f_process(char *string)
     }
     else
     {
-        judge = false;
+        judge = false;//啥也不是，错误
     }
 }
 void f_output()
@@ -160,37 +167,44 @@ void f_output()
 }
 int main(void)
 {
-    char string[N] = {0};
+    char string[N] = {0};//存储当前的字符
     while (scanf("%s", string) != EOF && judge) 
     {
-        if(strchr(string, ';'))
+        if(strchr(string, ';'))//看看字符中有没有分号，有的话需要进行分割处理
         {
-            judge_ = true;
-            char *pt_str = string;
-            if(*string == ';')
+            if(*(string + strlen(string) - 1) == ';')
+            {
+                judge_ = true;//结尾有分号
+            }
+            else
+            {
+                judge_ = false;
+            }
+            char *pt_str = string;//一个指针指向头部
+            if(*string == ';')//如果第一位就是指针（前面没有东西）
             {
                 *string = 0;
                 pt_str = string + 1;
-                op_arr[loc_op++] = 6;
+                op_arr[loc_op++] = 6;//分号意味着输出回车
             }
-            for(char *pos = strchr(pt_str, ';'); pos; pt_str = pos + 1, pos = strchr(pt_str, ';'))
+            for(char *pos = strchr(pt_str, ';'); pos; pt_str = pos + 1, pos = strchr(pt_str, ';'))//初始化pos指向分号的位置； 如果有分号，运行；下一次，更新pos，指向下一个分号的位置
             {
                 *pos = 0;
-                if(*pt_str != 0)
+                if(*pt_str != 0)//只要这个地方有东西，就执行
                 {
                     f_process(pt_str);
                 }
                 op_arr[loc_op++] = 6;
             }
-            if(*pt_str != 0)
+            if(*pt_str != 0)//前面是执行到最后一个分号的前面部分，如果后面还有东西，就继续执行
             {
                 f_process(pt_str);
             }
         }
-        else
+        else//当前语句没有分号的情况
         {
             f_process(string);
-            judge_ = false;
+            judge_ = false;//当前语句没分号
         }
         memset(string, 0, sizeof(string));
     }

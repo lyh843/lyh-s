@@ -1,3 +1,4 @@
+//扫雷检测最终版
 #include<stdio.h>
 #include<stdbool.h>
 #define N 10
@@ -88,7 +89,6 @@ int main(void)
         times = 2;
         f_judge(ques_arr, size, &judge2, wrong_arr, &num_wrong, times);
     }
-
     if(judge1)
     {
         printf("valid\n");
