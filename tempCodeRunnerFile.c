@@ -1,1 +1,2 @@
-1
+
+        scanf("%s", map[num]);
