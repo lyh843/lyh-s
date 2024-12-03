@@ -6,7 +6,7 @@
 char rule[N];
 char order[N][M];//最后一位标2，说明要吃东西；最后一位标1，说明被吃了;
 int num_order = 0;
-char spe_order[N];
+char spe_order[N];//会吃东西的字母
 int num_spe;
 bool judge2 = true, judge3 = true;
 char word[200], wrong[2];

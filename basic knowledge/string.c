@@ -15,8 +15,17 @@ int main(void)
     //      负数：如果str2大于str1
 
     //2、strcpy
-    //
-    
+    //用于将源字符串复制到目标字符串。
+    // 
+    // char *strcpy(char *dest, const char *src);
+    // 
+    // 地址：
+    // dest：目标字符串的指针，必须有足够的空间来存放源字符串及其终止符 \0。
+    // src：源字符串的指针。
+    // 
+    // 返回值   
+    // 返回指向目标字符串 dest 的指针。
+
     //3、strtok
 
     //4、sprintf

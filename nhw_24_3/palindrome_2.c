@@ -5,21 +5,21 @@ char string[N] = {0};
 int count1 = 1, count2 = 0;
 void f_process()
 {
-    for(int i = 1; i <= len / 2; i++)
+    for(int i = 1; i <= len / 2 + 1; i++)
     {
         if(string[i] == '?' && string[len + 1 - i] == '?')
         {
             string[i] = '*';
-            string[len - 1 - i] = '*';
+            string[len + 1 - i] = '*';
             count2++;
         }
         else if(string[i] == '?' && string[len + 1 - i] != '?')
         {
-            string[i] = string[len - 1 - i];
+            string[i] = string[len + 1 - i];
         }
         else if(string[i] != '?' && string[len + 1 - i] == '?')
         {
-            string[len - 1 - i] = string[i];
+            string[len + 1 - i] = string[i];
         }
     }
 }

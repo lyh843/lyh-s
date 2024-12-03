@@ -9,10 +9,7 @@ int f_mystrcat(char *string1, char *string2, int len1, int len2)
     memset(target , 0, N);
     for(int i = 1; i <= len2 && i <= len1; i++)
     {
-        for(int j = 0; j < i; j++)
-        {
-            *(target + j) = *(string1 + len1 - i + j);
-        }
+        strcpy(target, string1 + len1 - i); 
         if(strstr(string2, target) == string2)
         {
             result = i;
@@ -39,11 +36,7 @@ int main(void)
         len2 = strlen(string2);
         int loc = f_mystrcat(string1, string2, len1, len2);
         printf("%s", string1);
-        for(int i = loc; i < len2; i++)
-        {
-            printf("%c", *(string2 + i));
-        }
-        printf("\n");
+        printf("%s\n", string2 + loc);
     }
     return 0;
 }

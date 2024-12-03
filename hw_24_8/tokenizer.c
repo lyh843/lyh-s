@@ -1,6 +1,7 @@
 #include<stdio.h>
 #include<string.h>
 #include<stdbool.h>
+#include<ctype.h>
 #define N 4200
 #define M 10000
 char *reserverd[16] = 
@@ -56,7 +57,7 @@ int f_judge_integer(char *string)
 {
     for(int i = 0; string[i] != 0; i++)
     {
-        if(string[i] < '0' || string[i] > '9')
+        if(!isdigit(string[i]))
         {
             return 0;
         }
@@ -77,14 +78,14 @@ int f_judge_float(char *string)
         *(pt_str - 1) = 0;//让小数点的位置为\0
         for(int i = 0; string[i] != 0; i++)
         {
-            if(string[i] < '0' || string[i] > '9')
+            if(!isdigit(string[i]))
             {
                 return 0;
             }
         }
         for(int i = 0; *(pt_str + i) != 0; i++)
         {
-            if(*(pt_str + i) < '0' || *(pt_str + i) > '9')
+            if(!isdigit(*(pt_str + i)))
             {
                 return 0;
             }
@@ -102,7 +103,7 @@ int f_judge_variable(char *string)
     {
         for(int i = 1; string[i] != 0; i++)
         {
-            if((string[i] >= 'a' && string[i] <= 'z' )||(string[i] >= 'A' && string[i] <= 'Z')||(string[i] == '_')||(string[i] >= '0' && string[i] <= '9'))
+            if(isalpha(string[i]) || (string[i] == '_') || isdigit(string[i]))
             {
             }
             else
