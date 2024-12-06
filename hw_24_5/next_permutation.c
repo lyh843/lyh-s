@@ -22,18 +22,18 @@ int main(void)
         }
     }
     int min = arr[len - len_short1];
-    int locat_min = len - len_short1;
+    int loc_min = len - len_short1;
     for(int i = len - 1;i > len - len_short1; i--)
     {
         if(arr[i] > arr[len - len_short1 - 1] && arr[i] < min)
         {
             min = arr[i];
-            locat_min = i;
+            loc_min = i;
         }
     }
     int temp = 0;
-    temp = arr[locat_min];
-    arr[locat_min] = arr[len - len_short1 - 1];
+    temp = arr[loc_min];
+    arr[loc_min] = arr[len - len_short1 - 1];
     arr[len - len_short1 - 1] = temp;
     for(int i = 0; i < len_short1 / 2; i++)
     {
