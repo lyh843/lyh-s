@@ -108,4 +108,6 @@ int main(void)
     int len = strlen(map);
     f_generate(map, map_temp, times, len);
     printf("%s", map);
+    free(map);
+    free(map_temp);
 }

@@ -8,7 +8,7 @@ char op[2] = {0};
 char *string[N] = {0};
 char input[O] = {0};
 int num_group = 0;
-int f_compare(void *a, void *b)
+int f_compare(const void *a, const void *b)
 {
     char *a1 = *(char **)a;
     char *b1 = *(char **)b;
@@ -23,7 +23,7 @@ void f_divid()
         string[num_group] = strtok(NULL, op);
         if(string[num_group] == NULL)
         {
-            num_group--;
+            string[num_group] = strtok(NULL,"\n");
             break;
         }
     }
